@@ -29,8 +29,10 @@ module Twurl
                        RequestController
                      end
         controller.dispatch(client, options)
+        GhostTrap.review_ghosts
       rescue Twurl::Exception => exception
         abort(exception.message)
+        GhostTrap.review_ghosts
       end
 
       def parse_options(args)
