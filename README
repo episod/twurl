@@ -111,9 +111,21 @@ Notice that one of those consumer keys is marked as the default. To change the d
   testiverse
     guT9RsJbNQgVe6AwoY9BA
 
++------------------------------------------------+
+| Enabling HTTP Traces & OAuth Debug Information |
++------------------------------------------------+
+
+To enable more verbose logging of the entire request cycle, including detailed debugging information on OAuth, specify the '--trace' or '-t' parameter while executing any request.
+
+  % twurl -t authorize --consumer-key the_key       \
+                       --consumer-secret the_secret
+
+  % twurl --trace -d 'status=Testing twurl' /1/statuses/update.xml
+
 +--------------+
 | Contributors |
 +--------------+
 
 Marcel Molina <marcel@twitter.com> / @noradio
 Raffi Krikorian <raffi@twitter.com> / @raffi
+Taylor Singletary <taylorsingletary@twitter.com> / @episod
