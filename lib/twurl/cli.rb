@@ -172,7 +172,7 @@ module Twurl
       end
 
       def trace
-        on('-t', '--[no-]trace', 'Trace request/response traffic (default: --no-trace)') do |trace|
+        on('-t', '--[no-]trace', 'Trace request/response traffic & enable verbose OAuth logging (default: --no-trace)') do |trace|
           options.trace = trace
         end
       end

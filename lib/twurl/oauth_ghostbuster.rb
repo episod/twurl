@@ -4,9 +4,11 @@ class GhostTrap
   @@trapper_keeper = {}
 
   def GhostTrap.trap!(key, value)
-    puts "#{key}"
-    puts "#{value}"
-    puts "----"
+    if Twurl.options.trace && value
+      puts "\n== #{key} (OAuth Trace)"
+      puts "#{value}"
+      puts "==\n\n"
+    end
     @@log << { key => value }
   end
 
@@ -120,7 +122,10 @@ end
 # Hey, sometimes when you're testing you don't want to worry about silly stuff like this
 module OAuth
   class Consumer
-    CA_FILE = nil
+    # Uncomment below if you want to be more liberal with SSL cert
+    # acceptance. Useful for testing dev/qa environments.
+    # CA_FILE = nil
+
     def token_request(http_method, path, token = nil, request_options = {}, *arguments)
       response = request(http_method, path, token, request_options, *arguments)
       GhostTrap.trap! :response_body, response.body
