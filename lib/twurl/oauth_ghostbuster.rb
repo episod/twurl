@@ -1,13 +1,21 @@
-# Trap a ghost!
+# Taylor Singletary did this. http://twitter.com/episod
+# This is reckless monkey patching that makes OAuth cough up the goods.
+
+
+# The GhostTrap is where the ghosts of OAuth past are stored.
 class GhostTrap
   @@log = []
   @@trapper_keeper = {}
 
   def GhostTrap.trap!(key, value)
-    if Twurl.options.trace && value
-      puts "\n== #{key} (OAuth Trace)"
-      puts "#{value}"
-      puts "==\n\n"
+    begin
+      if Twurl.options.trace && value
+        puts "\n== #{key} (OAuth Trace)"
+        puts "#{value}"
+        puts "==\n\n"
+      end
+    rescue NameError
+      # Most likely without Twurl. No worries.
     end
     @@log << { key => value }
   end
@@ -46,10 +54,6 @@ class GhostTrap
   end
 
 end
-
-# These are all overrides for OAuth gems to make them more debuggable.
-# This could all be done more cleanly. But it isn't. So there.
-
 
 module OAuth::Client
   class Helper
